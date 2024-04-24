@@ -49,6 +49,7 @@ static char _id[] = "$Id: can_io.c,v 1.1 2007/08/20 19:50:23 uwe Sav uwe $";
 
 #include <linux/can.h>
 #include <linux/can/raw.h>
+#include <linux/sockios.h>
 
 
 /* ***	defines  ***
@@ -78,7 +79,7 @@ static char _id[] = "$Id: can_io.c,v 1.1 2007/08/20 19:50:23 uwe Sav uwe $";
 int can_baudrate = -1;					/* index to the bit-timing table	*/
 
 static int   fd = -1;					/* file descriptor (it´s a socket)	*/
-static char  ifname[IFNAMSIZ] = "";		/* interface name					*/
+static char  ifname[IFNAMSIZ+1] = "";	/* interface name					*/
 static int   family = PF_CAN;			/* protocol family					*/
 static int   type = SOCK_RAW;			/* communication semantics			*/
 static int   protocol = CAN_RAW;		/* protocol to be used with the socket	*/
@@ -86,6 +87,7 @@ static char  hardware[256];				/* hardware version of the CAN interface board	*/
 static char  software[256];				/* software version of the PCAN-Light interface	*/
 static int   init = FALSE;				/* initialization flag of interface	*/
 
+#if (0)
 static const int bit_timing[9] = {		/* bit-timing table:				*/
 	1000,								/*   1000 Kbps						*/
 	/* n/a */ 0,						/*    800 Kbps						*/
@@ -97,6 +99,7 @@ static const int bit_timing[9] = {		/* bit-timing table:				*/
 	20,									/*     20 Kbps						*/
 	10									/*     10 Kbps						*/
 };
+#endif
 static unsigned char can_state = 0x80;	/* 8-bit status register			*/
 
 
